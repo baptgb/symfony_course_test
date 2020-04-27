@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un projet</h1>
+    <p><a href="{{ path('project_list') }}">Revenir</a></p>
+    {{ form(projectForm) }}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des projets</h1>
+    <p><a href="{{ path('project_add') }}">Ajouter un projet</a></p>
+    {% for project in projects %}
+        <hr>
+        <p>Nom du projet : {{ project.name }} | Nombre de tâches : {{ project.tasks|length }} | Statut : {{ format_project_status(project.status) }} | Créé le : {{ project.startedAt|date('Y-m-d H:i:s') }} | <a href="{{ path('project_manage', {id: project.id}) }}">Gérer</a></p>
+    {% else %}
+        <p><small>Aucun projet n'a été ajouté, vous pouvez <a href="{{ path('project_add') }}">en ajouter un pour commencer</a>.</small></p>
+    {% endfor %}
+{% endblock %}

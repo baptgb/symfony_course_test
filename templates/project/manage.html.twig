@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p><a href="{{ path('project_list') }}">Revenir à la liste</a></p>
+    <h1>Project: {{ project.name }}</h1>
+    <p>Créé le {{ project.startedAt|date('Y-m-d H:i:s') }}</p>
+    <p>Nombre de tâches : {{ project.tasks|length }}</p>
+    {% if project.status != 'status_done' %}
+        {{ form(projectStatusForm) }}
+    {% else %}
+        <p><small>Vous ne pouvez plus changer le statut de ce projet (projet terminé)</small></p>
+    {% endif %}
+    {% if project.status != 'status_done' %}
+        <p><a href="{{ path('task_add', {projectId: project.id}) }}">Ajouter une tâche</a></p>
+    {% else %}
+        <p><small>Vous ne pouvez plus ajouter de tâche à ce projet (projet terminé)</small></p>
+    {% endif %}
+    <h4>Tâches du projet :</h4>
+    {% for task in project.tasks %}
+        <hr>
+        <p>Nom : {{ task.title }} | Description : {{ task.description }} | Ajoutée le : {{ task.createdAt|date('Y-m-d H:i:s') }}</p>
+    {% else %}
+        <p><small>Aucune tâche associée à ce projet</small></p>
+    {% endfor %}
+{% endblock %}
